@@ -1,0 +1,160 @@
+myGPIO.c
+
+/*
+ * GPIO.c
+ *
+ *  Created on:CSS
+ *      Author:Karen Perez-Serpa
+ */
+
+// For the code you place here, you may use your code that uses register references.
+// However, I encourage you to start using the Driver Library as soon as possible.
+
+#include <ti/devices/msp432p4xx/driverlib/driverlib.h>
+#include "myGPIO.h"
+#define BIT1 0x02 // 0x02 (hex) equals 0000 0010 (binary)
+#define BIT4 0x10 // 0x10 (hex) equals 0001 0000 (binary)
+#define PRESSED 0
+#define BIT5 0x20 //0x20 (hex) equals 0010 0000 (binary)
+#define BIT6 0x40 // 0x40 (hex) equals 0100 0000 (binary)
+#define BIT0 0x01 //0x01 (hex) equals 0000 0001 (binary)
+#define BIT2 0x04
+// TODO: Create a function to initialize the GPIO.
+// Even though this assignment does not use all of the pushbuttons, you should write one function that does a complete GPIO init.
+void initGPIO()
+{
+                 P1DIR &= ~BIT1; //Making P1.1 input
+                 P1REN |= BIT1; // enable resistor
+                 P1OUT |= BIT1; // select the pull down resistor
+
+                 P1DIR &= ~BIT4; //Making P1.4 input
+                 P1REN |= BIT4;
+                 P1OUT |= BIT4;
+
+                 P3DIR &= ~BIT5; //Making P3.5 input
+                 P3REN |= BIT5;
+                 P3OUT |= BIT5;
+
+                 P5DIR &= ~BIT1; //Making P5.1 input
+                 P5REN |= BIT1;
+                 P5OUT |= BIT1;
+
+                 P1DIR |= BIT0; // Make P1.0 output
+                 P2DIR |= BIT0; // Make P2.0 output
+                 P2DIR |= BIT1; // Make P2.1 output
+                 P2DIR |= BIT2; // Make P2.2 output
+                 P5DIR |= BIT6; // Make P5.6 output
+                 P2DIR |= BIT4; // Make P2.4 output
+                 P2DIR |= BIT6; // Make P2.6 output
+
+
+}
+
+// TODO: Create a function to return the status of Launchpad Pushbutton S1
+unsigned char checkStatus_LaunchpadS1()
+{
+    return P1IN & BIT0;
+}
+
+// TODO: Create a function to return the status of Launchpad Pushbutton S2
+unsigned char checkStatus_LaunchpadS2()
+{
+    return P1IN & BIT4;
+}
+
+// TODO: Create a function to return the status of Boosterpack Pushbutton S1
+unsigned char checkStatus_BoosterpackS1()
+{
+    return P3IN & BIT5;
+}
+
+// TODO: Create a function to return the status of Boosterpack Pushbutton S2
+unsigned char checkStatus_BoosterpackS2()
+{
+   return P5IN & BIT1;
+}
+
+// TODO: Create a function to turn on Launchpad LED1.
+void turnOn_LaunchpadLED1()
+{
+    P1OUT = P1OUT|BIT0;
+}
+
+// TODO: Create a function to turn off Launchpad LED1.
+void turnOff_LaunchpadLED1()
+{
+    P1OUT = P1OUT & ~BIT0;
+}
+
+// TODO: Create a function to turn on the Red Launchpad LED2.
+void turnOn_LaunchpadLED2Red()
+{
+    P2OUT = P2OUT|BIT0;
+}
+
+// TODO: Create a function to turn off the Red Launchpad LED2.
+void turnOff_LaunchpadLED2Red()
+{
+    P2OUT = P2OUT & ~BIT0;
+
+}
+
+// TODO: Create a function to turn on the Green Launchpad LED2.
+void turnOn_LaunchpadLED2Green()
+{
+    P2OUT = P2OUT|BIT1;
+}
+
+// TODO: Create a function to turn off the Green Launchpad LED2.
+void turnOff_LaunchpadLED2Green()
+{
+    P2OUT = P2OUT & ~BIT1;
+}
+
+// TODO: Create a function to turn on the Blue Launchpad LED2.
+void turnOn_LaunchpadLED2Blue()
+{
+    P2OUT = P2OUT|BIT2;
+}
+
+// TODO: Create a function to turn off the Blue Launchpad LED2.
+void turnOff_LaunchpadLED2Blue()
+{
+    P2OUT = P2OUT & ~BIT2;
+}
+
+// TODO: Create a function to turn on the Red Boosterpack LED2.
+void turnOn_BoosterpackLEDRed()
+{
+    P2OUT = P2OUT|BIT6;
+}
+
+// TODO: Create a function to turn off the Red Boosterpack LED2.
+void turnOff_BoosterpackLEDRed()
+{
+    P2OUT = P2OUT & ~BIT6;
+}
+
+// TODO: Create a function to turn on the Green Boosterpack LED2.
+void turnOn_BoosterpackLEDGreen()
+{
+    P2OUT = P2OUT|BIT4;
+}
+
+// TODO: Create a function to turn off the Green Boosterpack LED2.
+void turnOff_BoosterpackLEDGreen()
+{
+    P2OUT = P2OUT & ~BIT1;
+}
+
+// TODO: Create a function to turn on the Blue Boosterpack LED2.
+void turnOn_BoosterpackLEDBlue()
+{
+    P5OUT = P5OUT|BIT6;
+}
+
+// TODO: Create a function to turn off the Green Boosterpack LED2.
+void turnOff_BoosterpackLEDBlue()
+{
+    P5OUT = P5OUT & ~BIT6;
+}
